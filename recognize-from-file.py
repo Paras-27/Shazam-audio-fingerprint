@@ -1,9 +1,11 @@
-from libs.reader_microphone import FileReader
+#!/usr/bin/python
+# from libs.reader_file import FileReader
 
-song = None
-seconds = 5
+if __name__ == '__main__':
+    song = None
+    seconds = 5
 
-r = FileReader(123)
-r.recognize(seconds=seconds)
-
-print(song)
+    # r = FileReader(123)
+    # r.recognize(seconds=seconds)
+    #
+    # print(song)

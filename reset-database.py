@@ -2,30 +2,30 @@
 from libs.db_sqlite import SqliteDatabase
 
 if __name__ == '__main__':
-  db = SqliteDatabase()
+    db = SqliteDatabase()
 
-  #
-  # songs table
+    #
+    # songs table
 
-  db.query("DROP TABLE IF EXISTS songs;")
-  print('removed db.songs');
+    db.query("DROP TABLE IF EXISTS songs;")
+    print('removed db.songs')
 
-  db.query("""
+    db.query("""
     CREATE TABLE songs (
       id  INTEGER PRIMARY KEY AUTOINCREMENT,
       name  TEXT,
       filehash  TEXT
     );
   """)
-  print('created db.songs');
+    print('created db.songs')
 
-  #
-  # fingerprints table
+    #
+    # fingerprints table
 
-  db.query("DROP TABLE IF EXISTS fingerprints;")
-  print('removed db.fingerprints');
+    db.query("DROP TABLE IF EXISTS fingerprints;")
+    print('removed db.fingerprints')
 
-  db.query("""
+    db.query("""
     CREATE TABLE `fingerprints` (
       `id`  INTEGER PRIMARY KEY AUTOINCREMENT,
       `song_fk` INTEGER,
@@ -33,6 +33,6 @@ if __name__ == '__main__':
       `offset`  INTEGER
     );
   """)
-  print('created db.fingerprints');
+    print('created db.fingerprints')
 
-  print('done');
+    print('done')

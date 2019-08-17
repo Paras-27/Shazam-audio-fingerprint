@@ -1,6 +1,7 @@
-import matplotlib
-# matplotlib.use('Agg')
-matplotlib.use('TkAgg')
+try:
+    import matplotlib
 
-def x():
-  print('XXX')
+    # matplotlib.use('Agg')
+    matplotlib.use('TkAgg')
+except ImportError:
+    pass
