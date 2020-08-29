@@ -151,3 +151,59 @@ sqlite - connection opened
 done
 sqlite - connection has been closed
 ```
+
+#### recognize-from-microphone.py
+Example of audio/mp3 recognition through the microphone:
+```log
+C:\Users\Shadow\PycharmProjects\audio-fingerprint-identifying-python\venv\Scripts\python.exe C:/Users/Shadow/PycharmProjects/audio-fingerprint-identifying-python/recognize-from-microphone.py -s 3
+sqlite - connection opened
+ * started recording..
+   06093 ##################
+   08987 ###########################
+   04076 ############
+   07636 #######################
+   16496 ##################################################
+   12151 #####################################
+   08470 #########################
+   10584 ################################
+   17180 ####################################################
+   11988 ####################################
+   09515 #############################
+   18548 ########################################################
+   14245 ###########################################
+   10406 ###############################
+   08178 ########################
+   07700 #######################
+   07095 #####################
+   07795 #######################
+   06772 ####################
+   09094 ###########################
+   08859 ###########################
+   06796 ####################
+   08545 ##########################
+   06195 ##################
+   12825 #######################################
+   12000 ####################################
+   14640 ############################################
+   06971 #####################
+   10602 ################################
+   11087 #################################
+   17417 #####################################################
+   08880 ###########################
+ * recording has been stopped
+ * recorded 131072 samples
+   fingerprinting channel 1/2
+   local_maxima: 56 of frequency & time pairs
+   ** found 55 hash matches (step 679/679)
+   finished channel 1/2, got 55 hashes
+   fingerprinting channel 2/2
+   local_maxima: 56 of frequency & time pairs
+   ** found 55 hash matches (step 679/679)
+   finished channel 2/2, got 110 hashes
+
+ ** totally found 110 hash matches
+ => song: Javolenus_-_Funky_Cravings.mp3 (id=2)
+    offset: 1003 (46 secs)
+    confidence: 38
+```
+The result offset seems good ... it's pretty cool ! ^^
