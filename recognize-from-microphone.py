@@ -95,7 +95,7 @@ def return_matches(hashes):
 
         for hash_code, sid, offset in x:
             # (sid, db_offset - song_sampled_offset)
-            yield (sid, offset - mapper[hash_code])
+            yield sid, int.from_bytes(offset, "little") - mapper[hash_code]
 
 
 if __name__ == '__main__':
