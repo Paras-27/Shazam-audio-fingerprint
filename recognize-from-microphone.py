@@ -4,6 +4,7 @@ import sys
 from argparse import RawTextHelpFormatter
 from itertools import zip_longest as izip_longest
 
+import numpy as np
 from termcolor import colored
 
 import libs.fingerprint as fingerprint
@@ -70,7 +71,10 @@ def return_matches(hashes):
         mapper[hash.upper()] = offset
     values = mapper.keys()
 
-    for split_values in map(list, grouper(values, 1000)):
+    # https://www.sqlite.org/limits.html
+    # To prevent excessive memory allocations,
+    # the maximum value of a host parameter number is SQLITE_MAX_VARIABLE_NUMBER, which defaults to 999 for SQLites
+    for split_values in map(list, grouper(values, 999)):
         # @todo move to db related files
         query = """
     SELECT upper(hash), song_fk, offset
@@ -95,7 +99,10 @@ def return_matches(hashes):
 
         for hash_code, sid, offset in x:
             # (sid, db_offset - song_sampled_offset)
-            yield sid, int.from_bytes(offset, "little") - mapper[hash_code]
+            if isinstance(offset, bytes):
+                # offset come from fingerprint.py and numpy extraction/processing
+                offset = np.frombuffer(offset, dtype=np.int)[0]
+            yield sid,  offset - mapper[hash_code]
 
 
 if __name__ == '__main__':
