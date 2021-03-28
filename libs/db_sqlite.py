@@ -1,8 +1,15 @@
+import numpy as np
+
 from .db import Database
 from .config import get_config
 import sqlite3
 from itertools import zip_longest as izip_longest
 from termcolor import colored
+
+sqlite3.register_adapter(np.float64, float)
+sqlite3.register_adapter(np.float32, float)
+sqlite3.register_adapter(np.int64, int)
+sqlite3.register_adapter(np.int32, int)
 
 
 class SqliteDatabase(Database):
