@@ -9,13 +9,13 @@ from termcolor import colored
 
 import libs.fingerprint as fingerprint
 from libs.config import get_config
-from libs.db_sqlite import SqliteDatabase
+from libs.db_sqlite import SqliteDatabase, SQLITE_MAX_VARIABLE_NUMBER
 from libs.reader_microphone import MicrophoneReader
 from libs.visualiser_console import VisualiserConsole as visual_peak
 from libs.visualiser_plot import VisualiserPlot as visual_plot
 
-
 # from libs.db_mongo import MongoDatabase
+
 
 def align_matches(matches):
     diff_counter = {}
@@ -71,10 +71,7 @@ def return_matches(hashes):
         mapper[hash.upper()] = offset
     values = mapper.keys()
 
-    # https://www.sqlite.org/limits.html
-    # To prevent excessive memory allocations,
-    # the maximum value of a host parameter number is SQLITE_MAX_VARIABLE_NUMBER, which defaults to 999 for SQLites
-    for split_values in map(list, grouper(values, 999)):
+    for split_values in map(list, grouper(values, SQLITE_MAX_VARIABLE_NUMBER)):
         # @todo move to db related files
         query = """
     SELECT upper(hash), song_fk, offset
@@ -102,7 +99,7 @@ def return_matches(hashes):
             if isinstance(offset, bytes):
                 # offset come from fingerprint.py and numpy extraction/processing
                 offset = np.frombuffer(offset, dtype=np.int)[0]
-            yield sid,  offset - mapper[hash_code]
+            yield sid, offset - mapper[hash_code]
 
 
 if __name__ == '__main__':

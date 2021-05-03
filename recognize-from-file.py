@@ -4,7 +4,7 @@ from itertools import zip_longest
 from termcolor import colored
 
 import libs.fingerprint as fingerprint
-from libs.db_sqlite import SqliteDatabase
+from libs.db_sqlite import SqliteDatabase, SQLITE_MAX_VARIABLE_NUMBER
 from libs.reader_file import FileReader
 
 
@@ -26,7 +26,7 @@ def return_matches(db, hashes):
         mapper[audio_hash.upper()] = offset
     values = mapper.keys()
 
-    for split_values in grouper(values, 1000):
+    for split_values in grouper(values, SQLITE_MAX_VARIABLE_NUMBER):
         # @todo move to db related files
         query = """
       SELECT upper(hash), song_fk, offset

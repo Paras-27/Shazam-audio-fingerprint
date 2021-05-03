@@ -11,6 +11,11 @@ sqlite3.register_adapter(np.float32, float)
 sqlite3.register_adapter(np.int64, int)
 sqlite3.register_adapter(np.int32, int)
 
+# https://www.sqlite.org/limits.html
+# To prevent excessive memory allocations,
+# the maximum value of a host parameter number is SQLITE_MAX_VARIABLE_NUMBER, which defaults to 999 for SQLites
+SQLITE_MAX_VARIABLE_NUMBER = 999
+
 
 class SqliteDatabase(Database):
     TABLE_SONGS = 'songs'
